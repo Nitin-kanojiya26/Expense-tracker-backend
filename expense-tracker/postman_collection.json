@@ -1,0 +1,133 @@
+{
+  "info": {
+    "_postman_id": "b7a7fb65-8b1a-4e2c-b2d6-3c62a17e9f6a",
+    "name": "Expense Tracker API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "username", "value": "demo" },
+    { "key": "password", "value": "demo123" },
+    { "key": "userId", "value": "1" },
+    { "key": "categoryId", "value": "1" },
+    { "key": "expenseId", "value": "1" }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "{{username}}", "type": "string" },
+      { "key": "password", "value": "{{password}}", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"demo\",\n  \"password\": \"demo123\",\n  \"email\": \"demo@test.com\",\n  \"fullName\": \"Demo User\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"demo\",\n  \"password\": \"demo123\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/categories/user/{{userId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Food\",\n  \"description\": \"All food expenses\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Update Category",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Groceries\",\n  \"description\": \"Supermarket only\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Categories",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/categories/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Create Expense",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/expenses/user/{{userId}}?categoryId={{categoryId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Lunch\",\n  \"amount\": 120.50,\n  \"date\": \"2026-03-22\",\n  \"notes\": \"Office canteen\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Update Expense",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/expenses/{{expenseId}}?categoryId={{categoryId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Dinner\",\n  \"amount\": 250.00,\n  \"notes\": \"Client meeting\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Get Expenses",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/expenses/user/{{userId}}"
+      }
+    },
+    {
+      "name": "Get Summary",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/expenses/user/{{userId}}/summary?startDate=2026-03-01&endDate=2026-03-22"
+      }
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/categories/{{categoryId}}"
+      }
+    },
+    {
+      "name": "Delete Expense",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/expenses/{{expenseId}}"
+      }
+    }
+  ]
+}
